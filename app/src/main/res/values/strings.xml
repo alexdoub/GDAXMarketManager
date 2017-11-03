@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">BitcoinManager</string>
+    <string name="app_name">Bitcoin Manager</string>
 
-    <string name="title_activity_price_checker">PriceCheckerActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="refresh_button">Refresh</string>
+    <string name="current_price">Current Price: %.2f%n per coin</string>
+    <string name="current_price_loading">Loading Prices...</string>
+    <string name="current_price_error">Error Loading Prices</string>
 </resources>
