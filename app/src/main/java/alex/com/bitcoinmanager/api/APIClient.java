@@ -44,6 +44,10 @@ public class APIClient {
         _coinbaseService = retrofit.create(CoinbaseService.class);
     }
 
+    public void authenticate() {
+
+    }
+
     public void getPrices(final APICallback<CoinbasePriceModel> callback) {
 
         _coinbaseService.getPrices().enqueue(new Callback<GetPricesServiceResponse>() {
