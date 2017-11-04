@@ -7,5 +7,4 @@
 /build
 /captures
 .externalNativeBuild
-SECRET_KEYS.txt
-secret_keys.xml
+**/secret_keys.xml
