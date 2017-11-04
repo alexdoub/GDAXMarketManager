@@ -1,11 +1,13 @@
 package alex.com.bitcoinmanager.api.service.response;
 
-import alex.com.bitcoinmanager.models.CoinbasePriceModel;
+import java.util.List;
+
+import alex.com.bitcoinmanager.models.CurrencyModel;
 
 /**
  * Created by Alex on 11/3/2017.
  */
 
-public class GetPricesServiceResponse {
-    public CoinbasePriceModel model;
-}
+//public class GetPricesServiceResponse {
+//    public List<CurrencyModel> currencyList;
+//}

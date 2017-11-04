@@ -12,9 +12,13 @@ import timber.log.Timber;
 
 public class BitcoinManagerApp extends Application {
 
+    private static BitcoinManagerApp _instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        _instance = this;
 
         initializeStetho();
         Timber.plant(new Timber.DebugTree());
@@ -29,5 +33,9 @@ public class BitcoinManagerApp extends Application {
         Stetho.Initializer initializer = initializerBuilder.build();
         Stetho.initialize(initializer);
 //        Stetho.initializeWithDefaults(this);
+    }
+
+    public static BitcoinManagerApp getInstance() {
+        return _instance;
     }
 }

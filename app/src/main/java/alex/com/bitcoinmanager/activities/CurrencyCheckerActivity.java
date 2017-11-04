@@ -3,27 +3,34 @@ package alex.com.bitcoinmanager.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.List;
+
 import alex.com.bitcoinmanager.R;
+import alex.com.bitcoinmanager.adapters.GenericListAdapter;
 import alex.com.bitcoinmanager.api.APICallback;
 import alex.com.bitcoinmanager.api.APIClient;
-import alex.com.bitcoinmanager.models.CoinbasePriceModel;
+import alex.com.bitcoinmanager.interfaces.Listable;
+import alex.com.bitcoinmanager.models.CurrencyModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class PriceCheckerActivity extends AppCompatActivity {
+public class CurrencyCheckerActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.current_price_tv) TextView currentPriceTv;
+    @BindView(R.id.currency_list_lv) ListView currencyListLv;
+    @BindView(R.id.message_view) TextView messageViewTv;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
     @BindView(R.id.refresh_button) Button refreshButton;
 
-    double latestPrices = -1;
+    GenericListAdapter currencyListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +38,21 @@ public class PriceCheckerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_price_checker);
         ButterKnife.bind(this);
+
+        currencyListAdapter = new GenericListAdapter();
+        currencyListLv.setAdapter(currencyListAdapter);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        setLoading(false);
-//        if (latestPrices <= 0) {
-//            refreshPrices();
-//        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshPrices();
     }
 
     @Override
@@ -54,31 +66,37 @@ public class PriceCheckerActivity extends AppCompatActivity {
 
         setLoading(true);
 
-        //do api call
-        APIClient.getInstance().getPrices(new APICallback<CoinbasePriceModel>() {
+        APIClient.getInstance().getCurrencies(new APICallback<List<CurrencyModel>>() {
             @Override
-            public void success(CoinbasePriceModel model) {
-                latestPrices = model.price;
+            public void success(List<CurrencyModel> list) {
                 setLoading(false);
+                currencyListAdapter.setListContent(list);
             }
 
             @Override
             public void failure(Throwable throwable) {
-                currentPriceTv.setText(getString(R.string.current_price_error));
+                setLoading(false);
+                showErrorText(getString(R.string.current_price_error));
             }
         });
     }
 
-    protected void setLoading(boolean loading) {
+    void setLoading(boolean loading) {
         if (loading) {
             progressBar.setVisibility(View.VISIBLE);
+            currencyListLv.setVisibility(View.INVISIBLE);
             refreshButton.setEnabled(false);
-            currentPriceTv.setText(getResources().getText(R.string.current_price_loading));
+            messageViewTv.setText(getResources().getText(R.string.current_price_loading));
         } else {
             progressBar.setVisibility(View.INVISIBLE);
+            currencyListLv.setVisibility(View.VISIBLE);
             refreshButton.setEnabled(true);
-            currentPriceTv.setText(String.format(getString(R.string.current_price), latestPrices));
+            messageViewTv.setText("");
         }
     }
 
+    public void showErrorText(String msg) {
+        currencyListLv.setVisibility(View.INVISIBLE);
+        messageViewTv.setText(msg);
+    }
 }
