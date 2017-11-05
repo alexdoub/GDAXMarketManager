@@ -6,17 +6,17 @@
     android:orientation="horizontal">
 
     <TextView
-        style="@style/MediumTextStyle"
+        android:id="@+id/currency_id_tv"
+        style="@style/SmallSubTextStyle"
         android:layout_width="@dimen/currency_list_id_width"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/currency_list_text_view_margin"
-        android:text="@string/currency_list_id" />
+        android:layout_marginRight="@dimen/currency_list_text_view_margin" />
 
     <TextView
-        style="@style/MediumTextStyle"
+        android:id="@+id/currency_name_tv"
+        style="@style/SmallSubTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/currency_list_name" />
+        android:layout_weight="1" />
 
 </LinearLayout>

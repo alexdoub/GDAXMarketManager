@@ -15,19 +15,19 @@ import butterknife.ButterKnife;
  * Created by Alex on 11/3/2017.
  */
 
-public class CurrencyHeader extends LinearLayout {
+public class CurrencyHeaderView extends LinearLayout {
 
-    public CurrencyHeader(Context context) {
+    public CurrencyHeaderView(Context context) {
         super(context);
         init(context);
     }
 
-    public CurrencyHeader(Context context, AttributeSet attrs) {
+    public CurrencyHeaderView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public CurrencyHeader(Context context, AttributeSet attrs, int defStyle) {
+    public CurrencyHeaderView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }

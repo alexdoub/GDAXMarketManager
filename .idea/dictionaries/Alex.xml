@@ -4,6 +4,7 @@
       <w>bitcoin</w>
       <w>bitcoinmanager</w>
       <w>coinbase</w>
+      <w>hmac</w>
       <w>stetho</w>
     </words>
   </dictionary>

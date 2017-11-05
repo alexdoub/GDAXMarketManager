@@ -1,12 +1,22 @@
 <resources>
     <string name="app_name">Bitcoin Manager</string>
 
-    <!--Currency List-->
+    <!--Common-->
     <string name="refresh_button">Refresh</string>
-    <string name="message_loading">Loading Prices...</string>
-    <string name="message_error">Error Loading Prices</string>
+
+    <!--Currency List-->
+    <string name="currency_list_message_loading">Loading Currencies...</string>
+    <string name="currency_list_message_error">Error Loading Currencies</string>
+    <string name="currency_list_instructions">Tap on a currency below to see the available price quotes</string>
     <string name="currency_list_id">ID</string>
     <string name="currency_list_name">Name</string>
-    <string name="currency_list_value">Value</string>
+
+
+    <!--Product List-->
+    <string name="product_list_base_currency">Base Currency</string>
+    <string name="product_list_quote_currency">Quote Currency</string>
+    <string name="message_loading">Loading Products...</string>
+    <string name="message_error">Error Loading Products</string>
+    <string name="product_list_instructions">Tap on a product below to see recent market data</string>
 
 </resources>

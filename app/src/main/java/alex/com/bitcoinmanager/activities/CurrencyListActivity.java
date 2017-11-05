@@ -1,9 +1,11 @@
 package alex.com.bitcoinmanager.activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -15,17 +17,18 @@ import alex.com.bitcoinmanager.R;
 import alex.com.bitcoinmanager.adapters.GenericListAdapter;
 import alex.com.bitcoinmanager.api.APICallback;
 import alex.com.bitcoinmanager.api.APIClient;
-import alex.com.bitcoinmanager.interfaces.Listable;
 import alex.com.bitcoinmanager.models.CurrencyModel;
-import alex.com.bitcoinmanager.views.CurrencyHeader;
+import alex.com.bitcoinmanager.views.CurrencyHeaderView;
+import alex.com.bitcoinmanager.views.CurrencyRowView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 
-public class CurrencyCheckerActivity extends AppCompatActivity {
+public class CurrencyListActivity extends AppCompatActivity implements ListView.OnItemClickListener {
 
-
+    @BindView(R.id.currency_list_instructions_tv) TextView instructionsTv;
     @BindView(R.id.currency_list_lv) ListView currencyListLv;
     @BindView(R.id.message_view) TextView messageViewTv;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
@@ -37,24 +40,26 @@ public class CurrencyCheckerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_price_checker);
+        setContentView(R.layout.activity_currency_list);
         ButterKnife.bind(this);
 
         currencyListAdapter = new GenericListAdapter();
         currencyListLv.setAdapter(currencyListAdapter);
-        currencyListLv.addHeaderView(new CurrencyHeader(this));
+        currencyListLv.addHeaderView(new CurrencyHeaderView(this));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
+        if (currencyListAdapter.getCount() == 0) {
+            refreshPrices();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        refreshPrices();
     }
 
     @Override
@@ -87,11 +92,13 @@ public class CurrencyCheckerActivity extends AppCompatActivity {
         if (loading) {
             progressBar.setVisibility(View.VISIBLE);
             currencyListLv.setVisibility(View.INVISIBLE);
+            instructionsTv.setVisibility(View.INVISIBLE);
             refreshButton.setEnabled(false);
             messageViewTv.setText(getString(R.string.message_loading));
         } else {
             progressBar.setVisibility(View.INVISIBLE);
             currencyListLv.setVisibility(View.VISIBLE);
+            instructionsTv.setVisibility(View.VISIBLE);
             refreshButton.setEnabled(true);
             messageViewTv.setText("");
         }
@@ -100,5 +107,18 @@ public class CurrencyCheckerActivity extends AppCompatActivity {
     public void showErrorText(String msg) {
         currencyListLv.setVisibility(View.INVISIBLE);
         messageViewTv.setText(msg);
+    }
+
+
+    ////////////////////////////////////////
+    ///// ListView.OnItemClickListener /////
+    ////////////////////////////////////////
+    @OnItemClick(R.id.currency_list_lv)
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        if (view instanceof CurrencyRowView) {
+            CurrencyModel currencyModel = (CurrencyModel)currencyListAdapter.getItem(position-1);
+            ProductListActivity.StartActivity(this, currencyModel);
+        }
     }
 }

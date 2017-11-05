@@ -1,32 +1,27 @@
 package alex.com.bitcoinmanager.models;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import alex.com.bitcoinmanager.R;
-import alex.com.bitcoinmanager.interfaces.Listable;
-import alex.com.bitcoinmanager.views.CurrencyView;
+import alex.com.bitcoinmanager.views.CurrencyRowView;
 
 /**
  * Created by Alex on 11/3/2017.
  */
 
-public class CurrencyModel implements Listable {
+public class CurrencyModel extends BaseModel {
 
-    public String id;
     public String name;
-    public String value;
 
     public View getView(Context context, View convertView, ViewGroup parent) {
-        CurrencyView currencyView;
-        if (convertView != null && convertView instanceof CurrencyView) {
-            currencyView = (CurrencyView) convertView;
+        CurrencyRowView currencyRowView;
+        if (convertView != null && convertView instanceof CurrencyRowView) {
+            currencyRowView = (CurrencyRowView) convertView;
         } else {
-            currencyView = new CurrencyView(context);
+            currencyRowView = new CurrencyRowView(context);
         }
-        currencyView.bind(this);
-        return currencyView;
+        currencyRowView.bind(this);
+        return currencyRowView;
     }
 }

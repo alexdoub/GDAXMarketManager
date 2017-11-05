@@ -2,10 +2,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
-    tools:context="alex.com.bitcoinmanager.activities.CurrencyCheckerActivity">
+    android:background="#2277AA"
+    tools:context="alex.com.bitcoinmanager.activities.CurrencyListActivity">
 
-    <!--Main Area-->
+    <!--List-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/currency_list_instructions_tv"
+            style="@style/SmallTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="@color/text_color"
+            android:gravity="center"
+            android:text="@string/currency_list_instructions" />
+
+        <ListView
+            android:id="@+id/currency_list_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" />
+    </LinearLayout>
+
+
+    <!--Info-->
     <TextView
         android:id="@+id/message_view"
         android:layout_width="match_parent"
@@ -13,28 +37,19 @@
         android:gravity="center"
         android:padding="20dp"
         android:textColor="@color/text_color"
-        android:textSize="40sp"
+        android:textSize="@dimen/message_text_size"
         android:textStyle="bold" />
 
-    <ListView
-        android:id="@+id/currency_list_lv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="20dp" />
-
-
-    <!--Circlular Progress Bar-->
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="150dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
         android:visibility="invisible" />
 
 
-    <!--Bottom Buttons-->
+    <!--Bottom Button-->
     <LinearLayout
         style="?metaButtonBarStyle"
         android:layout_width="match_parent"
@@ -49,11 +64,11 @@
             android:id="@+id/refresh_button"
             style="?metaButtonBarButtonStyle"
             android:layout_width="0dp"
-            android:textSize="18sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="@string/refresh_button"
             android:textColor="@color/text_color"
-            android:text="@string/refresh_button" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 

@@ -21,6 +21,7 @@ import alex.com.bitcoinmanager.api.service.GDAXService;
 
 import alex.com.bitcoinmanager.api.service.response.GetTimeServiceResponse;
 import alex.com.bitcoinmanager.models.CurrencyModel;
+import alex.com.bitcoinmanager.models.ProductModel;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -56,7 +57,6 @@ public class APIClient {
         _authKey = BitcoinManagerApp.getInstance().getString(R.string.key);
         _authPassphrase = BitcoinManagerApp.getInstance().getString(R.string.passphrase);
         _authSecret = BitcoinManagerApp.getInstance().getString(R.string.secret);
-
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(new Interceptor() {
@@ -125,14 +125,31 @@ public class APIClient {
             @Override
             public void onFailure(Call< List<CurrencyModel>> call, Throwable t) {
                 Timber.e("getPrices - onFailure()");
-                for (String headerName : call.request().headers().names()) {
-                    Timber.e(" " + headerName + ": " + call.request().header(headerName));
-                }
                 Timber.e(t);
                 callback.failure(t);
             }
         });
-        System.out.println("did API call to get prices");
+    }
+
+    public void getProducts(final APICallback<List<ProductModel>> callback) {
+
+        _GDAXService.getProducts().enqueue(new Callback< List<ProductModel>>() {
+            @Override
+            public void onResponse(Call< List<ProductModel>> call, Response< List<ProductModel>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.success(response.body());
+                } else {
+                    callback.failure(new Exception("getPrices failure"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call< List<ProductModel>> call, Throwable t) {
+                Timber.e("getProducts - onFailure()");
+                Timber.e(t);
+                callback.failure(t);
+            }
+        });
     }
 
 
@@ -146,30 +163,19 @@ public class APIClient {
 
     private String getBase64SignedDigest(String timestamp, String method, String requestPath, String body) {
 
-        Timber.e("BEGIN getBase64SignedDigest()");
-        Timber.e("timestamp: " + timestamp);
-        Timber.e("method: " + method);
-        Timber.e("requestPath: " + requestPath);
-        Timber.e("body: " + body);
+        Timber.i("BEGIN getBase64SignedDigest()");
+        Timber.i("timestamp: " + timestamp);
+        Timber.i("method: " + method);
+        Timber.i("requestPath: " + requestPath);
+        Timber.i("body: " + body);
 
         String concatString = timestamp + method + requestPath + body;
-        Timber.e("concatString: " + concatString);
-
-
-//        byte[] decodedAuthSecret = Base64.decode(_authSecret, Base64.DEFAULT);
-//        String decodedSecret = new String(data, StandardCharsets.UTF_8);
-
+        Timber.i("concatString: " + concatString);
 
 
         try {
-//            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-//            byte[] hash = digest.digest(decodedAuthSecret);
-//            byte[] signedData = Base64.encode(hash, Base64.DEFAULT);
-//            String signedMsg = new String(signedData, StandardCharsets.UTF_8);
-//            return signedMsg;
-
             String encodedSignedMsg = encode(_authSecret, concatString);
-            Timber.e("encodedSignedMsg: [" + encodedSignedMsg + "]");
+            Timber.i("encodedSignedMsg: [" + encodedSignedMsg + "]");
             return  encodedSignedMsg;
 
         } catch (Exception e) {
