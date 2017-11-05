@@ -17,7 +17,7 @@ public class CurrencyModel implements Listable {
 
     public String id;
     public String name;
-    public String min_size;
+    public String value;
 
     public View getView(Context context, View convertView, ViewGroup parent) {
         CurrencyView currencyView;

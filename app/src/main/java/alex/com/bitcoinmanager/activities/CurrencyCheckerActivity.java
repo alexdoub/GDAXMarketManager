@@ -17,6 +17,7 @@ import alex.com.bitcoinmanager.api.APICallback;
 import alex.com.bitcoinmanager.api.APIClient;
 import alex.com.bitcoinmanager.interfaces.Listable;
 import alex.com.bitcoinmanager.models.CurrencyModel;
+import alex.com.bitcoinmanager.views.CurrencyHeader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,6 +42,7 @@ public class CurrencyCheckerActivity extends AppCompatActivity {
 
         currencyListAdapter = new GenericListAdapter();
         currencyListLv.setAdapter(currencyListAdapter);
+        currencyListLv.addHeaderView(new CurrencyHeader(this));
     }
 
     @Override
@@ -76,7 +78,7 @@ public class CurrencyCheckerActivity extends AppCompatActivity {
             @Override
             public void failure(Throwable throwable) {
                 setLoading(false);
-                showErrorText(getString(R.string.current_price_error));
+                showErrorText(getString(R.string.message_error));
             }
         });
     }
@@ -86,7 +88,7 @@ public class CurrencyCheckerActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             currencyListLv.setVisibility(View.INVISIBLE);
             refreshButton.setEnabled(false);
-            messageViewTv.setText(getResources().getText(R.string.current_price_loading));
+            messageViewTv.setText(getString(R.string.message_loading));
         } else {
             progressBar.setVisibility(View.INVISIBLE);
             currencyListLv.setVisibility(View.VISIBLE);

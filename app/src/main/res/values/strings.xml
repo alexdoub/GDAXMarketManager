@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">Bitcoin Manager</string>
 
+    <!--Currency List-->
     <string name="refresh_button">Refresh</string>
-    <string name="current_price">Current Price: %.2f%n per coin</string>
-    <string name="current_price_loading">Loading Prices...</string>
-    <string name="current_price_error">Error Loading Prices</string>
+    <string name="message_loading">Loading Prices...</string>
+    <string name="message_error">Error Loading Prices</string>
+    <string name="currency_list_id">ID</string>
+    <string name="currency_list_name">Name</string>
+    <string name="currency_list_value">Value</string>
+
 </resources>

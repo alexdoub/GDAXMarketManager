@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="currency_list_id_width">40dp</dimen>
+    <dimen name="currency_list_text_view_margin">20dp</dimen>
+    <dimen name="currency_list_value_width">50dp</dimen>
+</resources>

@@ -1,8 +1,7 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!--Main Styles-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -21,6 +20,18 @@
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <!--View Styles-->
+    <style name="BaseContentTextStyle" >
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="MediumTextStyle" parent="BaseContentTextStyle">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="SmallTextStyle" parent="BaseContentTextStyle">
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>
