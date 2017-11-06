@@ -8,7 +8,9 @@ GDAX (Global Digital Asset Exchange) is Coinbase's exchange trading platform. Th
 
 ## How do I use it? ##
 
-Just download and run!
+Open the APKs folder and install the APK directly. Its currently unsigned, but I will sign them in the future.
+Or...
+Import the project with Android Studio and compile it yourself!
 
 ## What can I do with this? ##
 

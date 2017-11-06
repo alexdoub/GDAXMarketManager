@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="alex.com.bitcoinmanager">
+    package="com.alexdoub.bitcoinmanager">
 
     <!--Permissions-->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".BitcoinManagerApp"
+        android:name="com.alexdoub.bitcoinmanager.BitcoinManagerApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.CurrencyListActivity"
+            android:name="com.alexdoub.bitcoinmanager.activities.CurrencyListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppThemeNoActionBar">
 
@@ -24,8 +24,8 @@
 
         </activity>
 
-        <activity android:name=".activities.ProductListActivity" />
-        <activity android:name=".activities.OrderListActivity" />
+        <activity android:name="com.alexdoub.bitcoinmanager.activities.ProductListActivity" />
+        <activity android:name="com.alexdoub.bitcoinmanager.activities.OrderListActivity" />
     </application>
 
 </manifest>
