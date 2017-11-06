@@ -16,16 +16,24 @@ import alex.com.bitcoinmanager.models.BaseModel;
  * Created by Alex on 11/3/2017.
  */
 
-public class GenericListAdapter implements ListAdapter {
+public class GenericListAdapter<T extends Listable> implements ListAdapter {
 
     List<DataSetObserver> observers = new ArrayList<>();
-    List<? extends Listable> listContent = new ArrayList<>();
+    List<T> listContent = new ArrayList<>();
 
     public int getCount() {
         return listContent.size();
     }
 
-    public void setListContent(List<? extends Listable> content) {
+    public void clearListContent() {
+        setListContent(new ArrayList<T>());
+    }
+
+    public void addListContent(T item) {
+        listContent.add(item);
+    }
+
+    public void setListContent(List<T> content) {
         listContent = content;
         notifyDataSetChanged();
     }

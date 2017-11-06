@@ -1,4 +1,4 @@
-package alex.com.bitcoinmanager.api;
+package alex.com.bitcoinmanager.interfaces;
 
 /**
  * Created by Alex on 11/3/2017.

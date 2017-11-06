@@ -7,7 +7,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import alex.com.bitcoinmanager.R;
-import alex.com.bitcoinmanager.models.CurrencyModel;
 import alex.com.bitcoinmanager.models.ProductModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,8 +17,8 @@ import butterknife.ButterKnife;
 
 public class ProductRowView extends LinearLayout {
 
-    @BindView(R.id.currency_id_tv) TextView currencyIdTv;
-    @BindView(R.id.currency_name_tv) TextView currencyNameTv;
+    @BindView(R.id.product_row_base_currency_tv) TextView baseCurrencyTv;
+    @BindView(R.id.product_row_quote_currency_tv) TextView quoteCurrencyTv;
 
     public ProductRowView(Context context) {
         super(context);
@@ -42,7 +41,7 @@ public class ProductRowView extends LinearLayout {
     }
 
     public void bind(ProductModel productModel) {
-        currencyIdTv.setText(productModel.baseCurrency);
-        currencyNameTv.setText(productModel.quoteCurrency);
+        baseCurrencyTv.setText(productModel.baseCurrency);
+        quoteCurrencyTv.setText(productModel.quoteCurrency);
     }
 }

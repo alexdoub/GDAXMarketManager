@@ -1,7 +1,5 @@
 package alex.com.bitcoinmanager.activities;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,18 +10,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Observable;
 
 import alex.com.bitcoinmanager.R;
 import alex.com.bitcoinmanager.adapters.GenericListAdapter;
-import alex.com.bitcoinmanager.api.APICallback;
+import alex.com.bitcoinmanager.interfaces.APICallback;
 import alex.com.bitcoinmanager.api.APIClient;
 import alex.com.bitcoinmanager.models.CurrencyModel;
+import alex.com.bitcoinmanager.utilities.ViewUtilities;
 import alex.com.bitcoinmanager.views.CurrencyHeaderView;
 import alex.com.bitcoinmanager.views.CurrencyRowView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
 
 
 public class CurrencyListActivity extends AppCompatActivity implements ListView.OnItemClickListener {
@@ -53,7 +56,7 @@ public class CurrencyListActivity extends AppCompatActivity implements ListView.
         super.onStart();
 
         if (currencyListAdapter.getCount() == 0) {
-            refreshPrices();
+            refreshCurrencies();
         }
     }
 
@@ -69,7 +72,7 @@ public class CurrencyListActivity extends AppCompatActivity implements ListView.
 
 
     @OnClick(R.id.refresh_button)
-    protected void refreshPrices() {
+    protected void refreshCurrencies() {
 
         setLoading(true);
 
@@ -77,13 +80,21 @@ public class CurrencyListActivity extends AppCompatActivity implements ListView.
             @Override
             public void success(List<CurrencyModel> list) {
                 setLoading(false);
-                currencyListAdapter.setListContent(list);
+                currencyListAdapter.clearListContent();
+
+                io.reactivex.Observable.fromArray(list.toArray())
+                        .subscribe(new Consumer<Object>() {
+                            public void accept(Object o) throws Exception {
+                                currencyListAdapter.addListContent((CurrencyModel) o);
+                            }
+                        });
             }
 
             @Override
             public void failure(Throwable throwable) {
                 setLoading(false);
                 showErrorText(getString(R.string.message_error));
+                ViewUtilities.ShowToast(CurrencyListActivity.this, "Failed loading products.");
             }
         });
     }
@@ -117,7 +128,7 @@ public class CurrencyListActivity extends AppCompatActivity implements ListView.
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         if (view instanceof CurrencyRowView) {
-            CurrencyModel currencyModel = (CurrencyModel)currencyListAdapter.getItem(position-1);
+            CurrencyModel currencyModel = (CurrencyModel) currencyListAdapter.getItem(position - 1);
             ProductListActivity.StartActivity(this, currencyModel);
         }
     }

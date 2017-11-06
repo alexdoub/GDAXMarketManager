@@ -20,6 +20,7 @@ import alex.com.bitcoinmanager.R;
 import alex.com.bitcoinmanager.api.service.GDAXService;
 
 import alex.com.bitcoinmanager.api.service.response.GetTimeServiceResponse;
+import alex.com.bitcoinmanager.interfaces.APICallback;
 import alex.com.bitcoinmanager.models.CurrencyModel;
 import alex.com.bitcoinmanager.models.ProductModel;
 import okhttp3.Interceptor;

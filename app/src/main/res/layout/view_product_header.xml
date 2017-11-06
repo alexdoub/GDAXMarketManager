@@ -2,21 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="45dp"
+    android:layout_gravity="center"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <TextView
         style="@style/MediumTextStyle"
-        android:layout_width="@dimen/currency_list_id_width"
+        android:layout_width="@dimen/product_list_base_currency_width"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/currency_list_text_view_margin"
-        android:text="@string/product_list_quote_currency" />
+        android:text="@string/product_list_base_currency" />
 
     <TextView
         style="@style/MediumTextStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/product_list_quote_currency_width"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="@string/product_list_quote_currency" />
 
 </LinearLayout>

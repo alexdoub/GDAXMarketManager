@@ -17,8 +17,8 @@ import butterknife.ButterKnife;
 
 public class CurrencyRowView extends LinearLayout {
 
-    @BindView(R.id.currency_id_tv) TextView currencyIdTv;
-    @BindView(R.id.currency_name_tv) TextView currencyNameTv;
+    @BindView(R.id.currency_row_id_tv) TextView currencyIdTv;
+    @BindView(R.id.currency_row_name_tv) TextView currencyNameTv;
 
     public CurrencyRowView(Context context) {
         super(context);

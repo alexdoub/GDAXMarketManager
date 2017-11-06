@@ -13,8 +13,8 @@
 
 
     <!--Product List-->
-    <string name="product_list_base_currency">Base Currency</string>
-    <string name="product_list_quote_currency">Quote Currency</string>
+    <string name="product_list_base_currency">From Currency</string>
+    <string name="product_list_quote_currency">To Currency</string>
     <string name="message_loading">Loading Products...</string>
     <string name="message_error">Error Loading Products</string>
     <string name="product_list_instructions">Tap on a product below to see recent market data</string>

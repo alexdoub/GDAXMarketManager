@@ -8,4 +8,8 @@
     <dimen name="currency_list_id_width">40dp</dimen>
     <dimen name="currency_list_text_view_margin">20dp</dimen>
     <dimen name="currency_list_value_width">50dp</dimen>
+
+    <dimen name="product_list_base_currency_width">150dp</dimen>
+    <dimen name="product_list_text_view_margin">20dp</dimen>
+    <dimen name="product_list_quote_currency_width">150dp</dimen>
 </resources>
