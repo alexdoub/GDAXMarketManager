@@ -1,9 +1,12 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Alex">
     <words>
+      <w>alexdoub</w>
       <w>bitcoin</w>
       <w>bitcoinmanager</w>
       <w>coinbase</w>
+      <w>gdax</w>
+      <w>gdaxmanager</w>
       <w>hmac</w>
       <w>stetho</w>
     </words>

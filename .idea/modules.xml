@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BitcoinManager.iml" filepath="$PROJECT_DIR$/BitcoinManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GDAXMarketManager.iml" filepath="$PROJECT_DIR$/GDAXMarketManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
