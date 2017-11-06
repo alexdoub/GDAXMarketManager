@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_header_normal"
+    android:layout_gravity="center"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        style="@style/MediumTextStyle"
+        android:layout_width="@dimen/order_list_row_status_width"
+        android:layout_height="wrap_content"
+        android:text="@string/order_list_status" />
+
+    <TextView
+        style="@style/MediumTextStyle"
+        android:layout_width="@dimen/order_list_row_orders_width"
+        android:layout_height="wrap_content"
+        android:text="@string/order_list_orders" />
+
+    <TextView
+        style="@style/MediumTextStyle"
+        android:layout_width="@dimen/order_list_row_size_width"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/order_list_size" />
+
+    <TextView
+        style="@style/MediumTextStyle"
+        android:layout_width="@dimen/order_list_row_price_width"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/order_list_price" />
+
+</LinearLayout>

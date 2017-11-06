@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
+    android:layout_height="@dimen/list_header_normal"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <TextView
-        style="@style/MediumTextStyle"
+        style="@style/LargeTextStyle"
         android:layout_width="@dimen/currency_list_id_width"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/currency_list_text_view_margin"
         android:text="@string/currency_list_id" />
 
     <TextView
-        style="@style/MediumTextStyle"
+        style="@style/LargeTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

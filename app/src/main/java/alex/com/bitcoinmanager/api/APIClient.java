@@ -4,7 +4,6 @@ import android.util.Base64;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -18,12 +17,14 @@ import javax.crypto.spec.SecretKeySpec;
 import alex.com.bitcoinmanager.BitcoinManagerApp;
 import alex.com.bitcoinmanager.R;
 import alex.com.bitcoinmanager.api.service.GDAXService;
-
 import alex.com.bitcoinmanager.api.service.response.GetTimeServiceResponse;
+import alex.com.bitcoinmanager.api.service.response.OrderBookServiceResponse;
 import alex.com.bitcoinmanager.interfaces.APICallback;
 import alex.com.bitcoinmanager.models.CurrencyModel;
+import alex.com.bitcoinmanager.models.OrderModel;
 import alex.com.bitcoinmanager.models.ProductModel;
-import alex.com.bitcoinmanager.utilities.ViewUtilities;
+import alex.com.bitcoinmanager.utilities.ViewUtils;
+import io.reactivex.Observable;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -44,7 +45,10 @@ public class APIClient {
 //    static String BASE_URL = "https://api.gdax.com";
 
     private static final APIClient _apiClient = new APIClient();
-    public static APIClient getInstance() { return _apiClient; }
+
+    public static APIClient getInstance() {
+        return _apiClient;
+    }
 
     private GDAXService _GDAXService = null;
 
@@ -60,7 +64,9 @@ public class APIClient {
         _authPassphrase = BitcoinManagerApp.getInstance().getString(R.string.passphrase);
         _authSecret = BitcoinManagerApp.getInstance().getString(R.string.secret);
 
-        ViewUtilities.ShowToast(BitcoinManagerApp.getInstance(), "WARNING - You don't have your auth keys set up. You cannot make authenticated calls!", false);
+        if (_authKey.length() == 0 || _authPassphrase.length() == 0 || _authSecret.length() == 0) {
+            ViewUtils.ShowToast(BitcoinManagerApp.getInstance(), "WARNING - You don't have your auth keys set up. You cannot make authenticated calls!", false);
+        }
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(new Interceptor() {
@@ -71,7 +77,7 @@ public class APIClient {
                         String method = chain.request().method();
                         String path = chain.request().url().encodedPath();
                         String body = "";
-                        if (chain.request().body()!= null) {
+                        if (chain.request().body() != null) {
                             body = chain.request().body().toString();
                         }
 
@@ -90,7 +96,7 @@ public class APIClient {
                         //Check response for authentication issues
                         okhttp3.Response response = chain.proceed(updatedRequest);
                         if (response.code() >= 401 && response.code() <= 403) {
-                            ViewUtilities.ShowToast(BitcoinManagerApp.getInstance(), "A network call failed authentication. Are your API keys properly set?");
+                            ViewUtils.ShowToast(BitcoinManagerApp.getInstance(), "A network call failed authentication. Are your API keys properly set?");
                         }
                         return response;
                     }
@@ -109,7 +115,7 @@ public class APIClient {
     }
 
 //    public void authenticate() {
-//        String key = BitcoinManagerApp.getInstance().getString(R.string.key);
+//        String key = BitcoinManagerApp.getInstance().GetString(R.string.key);
 //    }
 
     public void getTime() {
@@ -128,9 +134,9 @@ public class APIClient {
 
     public void getCurrencies(final APICallback<List<CurrencyModel>> callback) {
 
-        _GDAXService.getCurrencies().enqueue(new Callback< List<CurrencyModel>>() {
+        _GDAXService.getCurrencies().enqueue(new Callback<List<CurrencyModel>>() {
             @Override
-            public void onResponse(Call< List<CurrencyModel>> call, Response< List<CurrencyModel>> response) {
+            public void onResponse(Call<List<CurrencyModel>> call, Response<List<CurrencyModel>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.success(response.body());
                 } else {
@@ -139,7 +145,7 @@ public class APIClient {
             }
 
             @Override
-            public void onFailure(Call< List<CurrencyModel>> call, Throwable t) {
+            public void onFailure(Call<List<CurrencyModel>> call, Throwable t) {
                 Timber.e("getPrices - onFailure()");
                 Timber.e(t);
                 callback.failure(t);
@@ -149,9 +155,9 @@ public class APIClient {
 
     public void getProducts(final APICallback<List<ProductModel>> callback) {
 
-        _GDAXService.getProducts().enqueue(new Callback< List<ProductModel>>() {
+        _GDAXService.getProducts().enqueue(new Callback<List<ProductModel>>() {
             @Override
-            public void onResponse(Call< List<ProductModel>> call, Response< List<ProductModel>> response) {
+            public void onResponse(Call<List<ProductModel>> call, Response<List<ProductModel>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.success(response.body());
                 } else {
@@ -160,8 +166,30 @@ public class APIClient {
             }
 
             @Override
-            public void onFailure(Call< List<ProductModel>> call, Throwable t) {
+            public void onFailure(Call<List<ProductModel>> call, Throwable t) {
                 Timber.e("getProducts - onFailure()");
+                Timber.e(t);
+                callback.failure(t);
+            }
+        });
+    }
+
+    public void getOrderBook(String productId, final APICallback<Observable<OrderModel>> callback) {
+
+        _GDAXService.getOrderBook(productId, 2).enqueue(new Callback<OrderBookServiceResponse>() {
+            @Override
+            public void onResponse(Call<OrderBookServiceResponse> call, Response<OrderBookServiceResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Observable orders = OrderModel.TransformObservable(response.body());
+                    callback.success(orders);
+                } else {
+                    callback.failure(new Exception("getOrderBook - Failure"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderBookServiceResponse> call, Throwable t) {
+                Timber.e("getOrderBook - Failure");
                 Timber.e(t);
                 callback.failure(t);
             }
@@ -191,7 +219,7 @@ public class APIClient {
         try {
             String encodedSignedMsg = encode(_authSecret, concatString);
             Timber.i("encodedSignedMsg: [" + encodedSignedMsg + "]");
-            return  encodedSignedMsg;
+            return encodedSignedMsg;
 
         } catch (Exception e) {
             Timber.e(e);

@@ -10,11 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 import alex.com.bitcoinmanager.R;
 import alex.com.bitcoinmanager.adapters.GenericListAdapter;
@@ -22,8 +18,7 @@ import alex.com.bitcoinmanager.interfaces.APICallback;
 import alex.com.bitcoinmanager.api.APIClient;
 import alex.com.bitcoinmanager.models.CurrencyModel;
 import alex.com.bitcoinmanager.models.ProductModel;
-import alex.com.bitcoinmanager.utilities.ViewUtilities;
-import alex.com.bitcoinmanager.views.CurrencyRowView;
+import alex.com.bitcoinmanager.utilities.ViewUtils;
 import alex.com.bitcoinmanager.views.ProductHeaderView;
 import alex.com.bitcoinmanager.views.ProductRowView;
 import butterknife.BindView;
@@ -31,9 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
 import timber.log.Timber;
 
 /**
@@ -107,7 +99,6 @@ public class ProductListActivity extends AppCompatActivity {
                         .filter(new io.reactivex.functions.Predicate() {
                             @Override
                             public boolean test(Object o) throws Exception {
-
                                 ProductModel thisProductModel = (ProductModel) o;
                                 return (thisProductModel.baseCurrency.equalsIgnoreCase(currencyId) || thisProductModel.quoteCurrency.equalsIgnoreCase(currencyId));
                             }
@@ -123,7 +114,7 @@ public class ProductListActivity extends AppCompatActivity {
 
             @Override
             public void failure(Throwable throwable) {
-                ViewUtilities.ShowToast(ProductListActivity.this, "Failed loading products.");
+                ViewUtils.ShowToast(ProductListActivity.this, "Failed loading " + ProductModel.GetName(true));
                 showLoading(false);
             }
         });
@@ -143,7 +134,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         if (view instanceof ProductRowView) {
             ProductModel productModel = (ProductModel) productListAdapter.getItem(position - 1);
-            ViewUtilities.ShowToast(this, "TODO: Show market data for " + productModel.id);
+            OrderListActivity.StartActivity(ProductListActivity.this, productModel);
         }
     }
 }

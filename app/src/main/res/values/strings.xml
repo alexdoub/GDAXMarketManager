@@ -3,20 +3,35 @@
 
     <!--Common-->
     <string name="refresh_button">Refresh</string>
+    <string name="message_loading">Loading %s... </string>
+    <string name="message_loading_error">Error loading %s </string>
+    <string name="message_loading_for">Loading %s for %s... </string>
+    <string name="message_no_results">No results</string>
 
-    <!--Currency List-->
-    <string name="currency_list_message_loading">Loading Currencies...</string>
-    <string name="currency_list_message_error">Error Loading Currencies</string>
+    <!--Currency-->
     <string name="currency_list_instructions">Tap on a currency below to see the available price quotes</string>
     <string name="currency_list_id">ID</string>
     <string name="currency_list_name">Name</string>
+    <string name="currency_name">Currency</string>
+    <string name="currency_name_plural">Currencies</string>
 
-
-    <!--Product List-->
+    <!--Product-->
     <string name="product_list_base_currency">From Currency</string>
     <string name="product_list_quote_currency">To Currency</string>
-    <string name="message_loading">Loading Products...</string>
-    <string name="message_error">Error Loading Products</string>
     <string name="product_list_instructions">Tap on a product below to see recent market data</string>
+    <string name="product_name">Product</string>
+    <string name="product_name_plural">Products</string>
+
+    <!--Order-->
+    <string name="order_list_message_loading">Loading Orders for %@</string>
+    <string name="order_list_instructions">Tap on a product below to see recent market data</string>
+    <string name="order_list_status">Ask/Bid</string>
+    <string name="order_list_status_ask">Ask</string>
+    <string name="order_list_status_bid">Bid</string>
+    <string name="order_list_size">Size</string>
+    <string name="order_list_orders">Orders</string>
+    <string name="order_list_price">Price</string>
+    <string name="order_name">Order</string>
+    <string name="order_name_plural">Orders</string>
 
 </resources>

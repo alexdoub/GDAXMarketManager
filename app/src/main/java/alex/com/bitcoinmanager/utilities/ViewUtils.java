@@ -3,11 +3,17 @@ package alex.com.bitcoinmanager.utilities;
 import android.content.Context;
 import android.widget.Toast;
 
+import alex.com.bitcoinmanager.BitcoinManagerApp;
+
 /**
  * Created by Alex on 11/5/2017.
  */
 
-public class ViewUtilities {
+public class ViewUtils {
+
+    public static String GetString(int id) {
+        return BitcoinManagerApp.getInstance().getString(id);
+    }
 
     public static void ShowToast(Context context, String message) {
         ShowToast(context, message, true);

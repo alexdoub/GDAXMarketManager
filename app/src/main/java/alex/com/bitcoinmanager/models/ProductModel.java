@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 
 import com.google.gson.annotations.SerializedName;
 
+import alex.com.bitcoinmanager.BitcoinManagerApp;
+import alex.com.bitcoinmanager.R;
 import alex.com.bitcoinmanager.views.CurrencyRowView;
 import alex.com.bitcoinmanager.views.ProductRowView;
 
@@ -30,5 +32,9 @@ public class ProductModel extends BaseModel {
         }
         productRowView.bind(this);
         return productRowView;
+    }
+
+    public static String GetName(boolean plural) {
+        return plural ? BitcoinManagerApp.getInstance().getString(R.string.product_name_plural) : BitcoinManagerApp.getInstance().getString(R.string.product_name);
     }
 }

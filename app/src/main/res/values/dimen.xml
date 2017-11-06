@@ -3,8 +3,13 @@
 
     <!--Common-->
     <dimen name="message_text_size">30dp</dimen>
+    <dimen name="bottom_button_height">45dp</dimen>
 
     <!--List Views-->
+    <dimen name="list_header_normal">50dp</dimen>
+    <dimen name="list_row_normal">45dp</dimen>
+    <dimen name="list_row_thin">25dp</dimen>
+
     <dimen name="currency_list_id_width">40dp</dimen>
     <dimen name="currency_list_text_view_margin">20dp</dimen>
     <dimen name="currency_list_value_width">50dp</dimen>
@@ -12,4 +17,9 @@
     <dimen name="product_list_base_currency_width">150dp</dimen>
     <dimen name="product_list_text_view_margin">20dp</dimen>
     <dimen name="product_list_quote_currency_width">150dp</dimen>
+
+    <dimen name="order_list_row_status_width">90dp</dimen>
+    <dimen name="order_list_row_orders_width">80dp</dimen>
+    <dimen name="order_list_row_size_width">100dp</dimen>
+    <dimen name="order_list_row_price_width">70dp</dimen>
 </resources>

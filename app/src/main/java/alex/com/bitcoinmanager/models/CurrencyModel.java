@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import alex.com.bitcoinmanager.BitcoinManagerApp;
+import alex.com.bitcoinmanager.R;
 import alex.com.bitcoinmanager.views.CurrencyRowView;
 
 /**
@@ -23,5 +25,9 @@ public class CurrencyModel extends BaseModel {
         }
         currencyRowView.bind(this);
         return currencyRowView;
+    }
+
+    public static String GetName(boolean plural) {
+        return plural ? BitcoinManagerApp.getInstance().getString(R.string.currency_name_plural) : BitcoinManagerApp.getInstance().getString(R.string.currency_name);
     }
 }

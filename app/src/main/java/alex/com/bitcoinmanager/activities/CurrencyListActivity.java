@@ -10,23 +10,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Observable;
 
 import alex.com.bitcoinmanager.R;
 import alex.com.bitcoinmanager.adapters.GenericListAdapter;
 import alex.com.bitcoinmanager.interfaces.APICallback;
 import alex.com.bitcoinmanager.api.APIClient;
 import alex.com.bitcoinmanager.models.CurrencyModel;
-import alex.com.bitcoinmanager.utilities.ViewUtilities;
+import alex.com.bitcoinmanager.utilities.ViewUtils;
 import alex.com.bitcoinmanager.views.CurrencyHeaderView;
 import alex.com.bitcoinmanager.views.CurrencyRowView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Predicate;
 
 
 public class CurrencyListActivity extends AppCompatActivity implements ListView.OnItemClickListener {
@@ -93,8 +90,8 @@ public class CurrencyListActivity extends AppCompatActivity implements ListView.
             @Override
             public void failure(Throwable throwable) {
                 setLoading(false);
-                showErrorText(getString(R.string.message_error));
-                ViewUtilities.ShowToast(CurrencyListActivity.this, "Failed loading products.");
+                showErrorText(getString(R.string.message_loading_error, CurrencyModel.GetName(true)));
+                ViewUtils.ShowToast(CurrencyListActivity.this, "Failed loading " + CurrencyModel.GetName(true));
             }
         });
     }
@@ -105,7 +102,7 @@ public class CurrencyListActivity extends AppCompatActivity implements ListView.
             currencyListLv.setVisibility(View.INVISIBLE);
             instructionsTv.setVisibility(View.INVISIBLE);
             refreshButton.setEnabled(false);
-            messageViewTv.setText(getString(R.string.message_loading));
+            messageViewTv.setText(getString(R.string.message_loading, CurrencyModel.GetName(true)));
         } else {
             progressBar.setVisibility(View.INVISIBLE);
             currencyListLv.setVisibility(View.VISIBLE);
