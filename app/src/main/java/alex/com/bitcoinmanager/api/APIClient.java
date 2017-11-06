@@ -23,6 +23,7 @@ import alex.com.bitcoinmanager.api.service.response.GetTimeServiceResponse;
 import alex.com.bitcoinmanager.interfaces.APICallback;
 import alex.com.bitcoinmanager.models.CurrencyModel;
 import alex.com.bitcoinmanager.models.ProductModel;
+import alex.com.bitcoinmanager.utilities.ViewUtilities;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -59,10 +60,13 @@ public class APIClient {
         _authPassphrase = BitcoinManagerApp.getInstance().getString(R.string.passphrase);
         _authSecret = BitcoinManagerApp.getInstance().getString(R.string.secret);
 
+        ViewUtilities.ShowToast(BitcoinManagerApp.getInstance(), "WARNING - You don't have your auth keys set up. You cannot make authenticated calls!", false);
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(new Interceptor() {
                     @Override
                     public okhttp3.Response intercept(Chain chain) throws IOException {
+
                         String timestamp = getTimestamp();
                         String method = chain.request().method();
                         String path = chain.request().url().encodedPath();
@@ -71,13 +75,24 @@ public class APIClient {
                             body = chain.request().body().toString();
                         }
 
+                        if (_authKey.length() == 0 || _authPassphrase.length() == 0 || _authSecret.length() == 0) {
+                            Timber.i("Skipping authentication for network call " + path + " because auth keys not set up");
+                            return chain.proceed(chain.request());
+                        }
+
                         Request updatedRequest = chain.request().newBuilder()
                                 .addHeader("CB-ACCESS-KEY", _authKey)
                                 .addHeader("CB-ACCESS-SIGN", getBase64SignedDigest(timestamp, method, path, body))
                                 .addHeader("CB-ACCESS-TIMESTAMP", timestamp)
                                 .addHeader("CB-ACCESS-PASSPHRASE", _authPassphrase)
                                 .build();
-                        return chain.proceed(updatedRequest);
+
+                        //Check response for authentication issues
+                        okhttp3.Response response = chain.proceed(updatedRequest);
+                        if (response.code() >= 401 && response.code() <= 403) {
+                            ViewUtilities.ShowToast(BitcoinManagerApp.getInstance(), "A network call failed authentication. Are your API keys properly set?");
+                        }
+                        return response;
                     }
                 })
                 .addNetworkInterceptor(new StethoInterceptor())
@@ -173,7 +188,6 @@ public class APIClient {
         String concatString = timestamp + method + requestPath + body;
         Timber.i("concatString: " + concatString);
 
-
         try {
             String encodedSignedMsg = encode(_authSecret, concatString);
             Timber.i("encodedSignedMsg: [" + encodedSignedMsg + "]");
@@ -182,7 +196,7 @@ public class APIClient {
         } catch (Exception e) {
             Timber.e(e);
         }
-        Timber.e("getBase64SignedDigest() FAILURE");
+        Timber.e("getBase64SignedDigest() FAILURE!");
         return "";
     }
 
