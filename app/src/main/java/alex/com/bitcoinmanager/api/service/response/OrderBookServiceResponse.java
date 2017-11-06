@@ -5,7 +5,7 @@ package alex.com.bitcoinmanager.api.service.response;
  */
 
 public class OrderBookServiceResponse {
-    public int sequence;
+    public long sequence;
     public Object[][] bids;
     public Object[][] asks;
 }

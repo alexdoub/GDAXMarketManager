@@ -23,10 +23,10 @@ public class OrderModel extends BaseModel {
 
     public String price;
     public String size;
-    public int numOrders;
+    public long numOrders;
     public boolean ask;
 
-    protected OrderModel(String price, String size, int numOrders, boolean ask) {
+    protected OrderModel(String price, String size, long numOrders, boolean ask) {
         this.price = price;
         this.size = size;
         this.numOrders = numOrders;

@@ -41,8 +41,8 @@ import timber.log.Timber;
 
 public class APIClient {
 
-    static String BASE_URL = "https://api-public.sandbox.gdax.com";
-//    static String BASE_URL = "https://api.gdax.com";
+//    static String BASE_URL = "https://api-public.sandbox.gdax.com";
+    static String BASE_URL = "https://api.gdax.com";
 
     private static final APIClient _apiClient = new APIClient();
 
