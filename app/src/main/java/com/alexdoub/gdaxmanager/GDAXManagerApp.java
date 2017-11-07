@@ -20,19 +20,8 @@ public class GDAXManagerApp extends Application {
 
         _instance = this;
 
-        initializeStetho();
+        Stetho.initializeWithDefaults(this);
         Timber.plant(new Timber.DebugTree());
-    }
-
-    protected void initializeStetho() {
-
-        Stetho.InitializerBuilder initializerBuilder = Stetho.newInitializerBuilder(this);
-        initializerBuilder.enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this));     // Enable Chrome DevTools
-        initializerBuilder.enableDumpapp(Stetho.defaultDumperPluginsProvider(this));                // Enable command line interface
-
-        Stetho.Initializer initializer = initializerBuilder.build();
-        Stetho.initialize(initializer);
-//        Stetho.initializeWithDefaults(this);
     }
 
     public static GDAXManagerApp getInstance() {
