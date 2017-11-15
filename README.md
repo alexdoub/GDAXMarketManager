@@ -1,3 +1,5 @@
+Note: This project has been put on hold temporarily. In the meantime, check out [DarkSkyChecker](https://github.com/skr1p7k1dd/DarkSkyChecker) instead.
+
 # GDAX Market Manager #
 
 Check GDAX market prices for crypto currencies such as Bitcoin, Litecoin and Etherium!
