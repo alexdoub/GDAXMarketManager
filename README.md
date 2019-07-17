@@ -29,3 +29,6 @@ I am slowly adding more features, so stay tuned.
 -Fancy graphs to help visualize market trends
 
 -Live tracking from a websocket feed
+
+
+1
