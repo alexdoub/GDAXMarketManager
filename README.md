@@ -30,6 +30,3 @@ I am slowly adding more features, so stay tuned.
 
 -Live tracking from a websocket feed
 
-
-2
-3
